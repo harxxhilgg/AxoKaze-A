@@ -19,6 +19,7 @@ const NO_REFRESH_ENDPOINTS = [
   "/auth/forgot-password",
   "/auth/reset-password",
   "/auth/logout",
+  "/auth/google-login",
 ];
 
 const shouldSkipRefresh = (url: string | undefined): boolean => {
@@ -70,6 +71,10 @@ api.interceptors.response.use(
 
       try {
         await api.post("/auth/refresh-token");
+
+        const { checkAuth } = useAuthStore.getState();
+        await checkAuth();
+
         processQueue();
         return api(originalRequest);
       } catch (refreshError) {

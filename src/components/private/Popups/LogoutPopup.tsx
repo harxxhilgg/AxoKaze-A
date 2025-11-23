@@ -21,7 +21,7 @@ const LogoutPopup = () => {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // REMOVE IN PROD
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // REMOVE IN PROD
 
       await logout();
 

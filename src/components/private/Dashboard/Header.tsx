@@ -2,7 +2,7 @@ import { Bell } from "lucide-react";
 import type { MenuTab } from "../../../pages/protected/Dashboard";
 import { useUIStore } from "../../../stores";
 import type { User } from "../../../types";
-import UserContextMenu from "./Menus/UserContextMenu";
+import DefaultUser from "../../../assets/default-user.svg";
 
 interface HeaderProps {
   activeTab: MenuTab;
@@ -11,15 +11,15 @@ interface HeaderProps {
 
 const tabLabels: Record<MenuTab, string> = {
   overview: "Overview",
-  analytics: "Analytics",
-  projects: "Projects",
-  tasks: "Tasks",
-  team: "Team",
-  settings: "Settings",
+  pokedex: "Pokédex",
+  movies: "Movies",
+  weather: "Weather",
+  crypto: "Crypto",
+  profile: "Profile",
 };
 
 const Header = ({ activeTab, user }: HeaderProps) => {
-  const { showUserContextMenu, setShowUserContextMenu } = useUIStore();
+  const { setShowUserContextMenu } = useUIStore();
 
   return (
     <div className="flex items-center justify-between h-21 px-6">
@@ -50,12 +50,26 @@ const Header = ({ activeTab, user }: HeaderProps) => {
         <div className="relative group">
           <button
             onClick={() => setShowUserContextMenu(true)}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              setShowUserContextMenu(true);
+            }}
             className="flex items-center justify-center w-14 h-14 rounded-lg gap-3 hover:bg-zinc-100 dark:hover:bg-zinc-50/15 transition-all duration-200 cursor-pointer active:scale-95"
           >
-            <div className="w-8 h-8 rounded-full bg-zinc-800 dark:bg-zinc-200 flex items-center justify-center">
-              <span className="text-sm font-display font-semibold text-zinc-200 dark:text-zinc-800">
-                {user?.name?.charAt(0)?.toUpperCase() || "U"}
-              </span>
+            <div className="w-12 h-12 rounded-full border-2 border-zinc-700 flex items-center justify-center">
+              {user?.profilePicture ? (
+                <img
+                  src={user.profilePicture}
+                  className="w-10 h-10 rounded-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <img
+                  src={DefaultUser}
+                  alt="Default Avatar"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+              )}
             </div>
           </button>
 
@@ -66,9 +80,6 @@ const Header = ({ activeTab, user }: HeaderProps) => {
               <p className="text-xs">{user?.email}</p>
             </div>
           </span>
-
-          {/* context Menu */}
-          {showUserContextMenu && <UserContextMenu user={user} />}
         </div>
       </div>
     </div>

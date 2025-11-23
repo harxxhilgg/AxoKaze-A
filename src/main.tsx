@@ -10,7 +10,7 @@ createRoot(document.getElementById("root")!).render(
     <NuqsAdapter>
       <App />
       <Toaster
-        position="top-right"
+        position="bottom-right"
         reverseOrder={false}
         gutter={8}
         toastOptions={{

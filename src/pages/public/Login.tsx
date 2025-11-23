@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import api from "../../lib/api";
 import { useAuthStore } from "../../stores";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import GoogleAuthButton from "../../components/public/GoogleAuthButton";
 
 const loginSchema = z.object({
   email: z.email("Invalid email format."),
@@ -234,7 +235,7 @@ const Login = () => {
 
   return (
     <div className="relative grid min-h-screen grid-cols-[1fr_2.5rem_auto_2.5rem_1fr] grid-rows-[1fr_1px_auto_1px_1fr] [--pattern-fg:var(--color-zinc-950)]/5 dark:[--pattern-fg:var(--color-zinc-50)]/10 selection:bg-zinc-50/15 transition-all">
-      <div className="col-start-3 row-start-3 w-150 flex flex-col bg-gray-100 dark:bg-white/10">
+      <div className="col-start-3 row-start-3 w-180 flex flex-col bg-gray-100 dark:bg-white/10">
         <div className="flex flex-col justify-center items-center p-10 bg-zinc-100 dark:bg-zinc-950/70 text-center">
           {/* ------------------------------------ */}
 
@@ -272,7 +273,7 @@ const Login = () => {
             {step === "creds" && (
               <form
                 onSubmit={handleLoginSubmit(onLogin)}
-                className="flex flex-col gap-4 w-90 mb-4"
+                className="flex flex-col gap-4 w-100 mb-4"
               >
                 <div className="relative">
                   <Mail
@@ -341,6 +342,16 @@ const Login = () => {
                     <p className="text-md font-semibold">Continue</p>
                   )}
                 </button>
+
+                <div className="flex items-center justify-center w-full my-2">
+                  <div className="flex-1 h-0.5 bg-zinc-800 rounded-full"></div>
+                  <p className="mx-2 text-sm text-zinc-500 leading-none font-semibold font-display">
+                    OR
+                  </p>
+                  <div className="flex-1 h-0.5 bg-zinc-800 rounded-full"></div>
+                </div>
+
+                <GoogleAuthButton mode="login" disabled={loading} />
               </form>
             )}
 

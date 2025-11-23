@@ -1,11 +1,11 @@
 import type { MenuTab } from "../../../pages/protected/Dashboard";
 import type { User } from "../../../types";
-import Analytics from "./Pages/Analytics";
 import Overview from "./Pages/Overview";
-import Projects from "./Pages/Projects";
-import Settings from "./Pages/Settings";
-import Tasks from "./Pages/Tasks";
-import Team from "./Pages/Team";
+import Profile from "./Pages/Profile";
+import Pokedex from "./Pages/Pokedex";
+import Movies from "./Pages/Movies";
+import Weather from "./Pages/Weather";
+import Crypto from "./Pages/Crypto";
 
 interface MainContentProps {
   activeTab: MenuTab;
@@ -17,16 +17,16 @@ const MainContent = ({ activeTab, user }: MainContentProps) => {
     switch (activeTab) {
       case "overview":
         return <Overview user={user} />;
-      case "analytics":
-        return <Analytics />;
-      case "projects":
-        return <Projects />;
-      case "tasks":
-        return <Tasks />;
-      case "team":
-        return <Team />;
-      case "settings":
-        return <Settings user={user} />;
+      case "pokedex":
+        return <Pokedex />;
+      case "movies":
+        return <Movies />;
+      case "weather":
+        return <Weather />;
+      case "crypto":
+        return <Crypto />;
+      case "profile":
+        return <Profile user={user} />;
       default:
         return <Overview user={user} />;
     }

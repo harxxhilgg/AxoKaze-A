@@ -99,7 +99,7 @@ const NewPasswordForm = ({ token }: { token: string }) => {
     <>
       {showSuccess && <PasswordResetPopup />}
 
-      <div className="flex flex-col mt-4 justify-center w-[20rem] mx-auto">
+      <div className="flex flex-col mt-4 justify-center w-100 mx-auto">
         <form
           onSubmit={handlePasswordSubmit(onSubmit)}
           className="flex flex-col gap-4 duration-300"

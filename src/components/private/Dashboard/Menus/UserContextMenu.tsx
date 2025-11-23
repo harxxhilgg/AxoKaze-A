@@ -13,7 +13,8 @@ interface UserContextMenuProps {
 const UserContextMenu = ({ user }: UserContextMenuProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { setShowUserContextMenu, setShowLogoutPopup } = useUIStore();
+  const { setShowUserContextMenu, setShowLogoutPopup, setShowProfilePopup } =
+    useUIStore();
 
   usePopupClose(() => setShowUserContextMenu(false));
 
@@ -23,8 +24,8 @@ const UserContextMenu = ({ user }: UserContextMenuProps) => {
   }, []);
 
   const handleProfileClick = () => {
-    console.log("Navigate to profile...");
     setShowUserContextMenu(false);
+    setShowProfilePopup(true);
   };
 
   const handleLogoutClick = () => {

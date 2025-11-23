@@ -11,7 +11,7 @@ const Overview = ({ user }: OverviewProps) => {
         {/* Stats Cards */}
         <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800">
           <h3 className="text-sm font-satoshi text-zinc-500 dark:text-zinc-400">
-            Total Projects
+            Total Overview
           </h3>
           <p className="text-2xl font-display font-bold text-zinc-900 dark:text-zinc-100 mt-2">
             12

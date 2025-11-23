@@ -2,6 +2,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  profilePicture?: string;
 }
 
 export interface LoginResponse {
@@ -47,4 +48,14 @@ export interface AuthState {
   isAuthenticated: boolean;
   setUser: (user: User | null) => void;
   logout: () => void;
+}
+
+export interface GoogleAuthCredentials {
+  credential: string;
+}
+
+export interface GoogleLoginResponse {
+  message: string;
+  user: User;
+  isNewUser?: boolean;
 }

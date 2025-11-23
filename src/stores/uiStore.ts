@@ -5,6 +5,10 @@ interface UIState {
   setShowLogoutPopup: (show: boolean) => void;
   showUserContextMenu: boolean;
   setShowUserContextMenu: (show: boolean) => void;
+  showUpdateProfilePopup: boolean;
+  setShowUpdateProfilePopup: (show: boolean) => void;
+  showProfilePopup: boolean;
+  setShowProfilePopup: (show: boolean) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -12,4 +16,8 @@ export const useUIStore = create<UIState>((set) => ({
   setShowLogoutPopup: (show) => set({ showLogoutPopup: show }),
   showUserContextMenu: false,
   setShowUserContextMenu: (show) => set({ showUserContextMenu: show }),
+  showUpdateProfilePopup: false,
+  setShowUpdateProfilePopup: (show) => set({ showUpdateProfilePopup: show }),
+  showProfilePopup: false,
+  setShowProfilePopup: (show) => set({ showProfilePopup: show }),
 }));
