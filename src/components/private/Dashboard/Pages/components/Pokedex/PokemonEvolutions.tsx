@@ -1,0 +1,58 @@
+import { ChevronRight } from "lucide-react";
+import type { EvolutionChainItem } from "../../../../../../types";
+import { Ring } from "ldrs/react";
+import "ldrs/react/Ring.css";
+
+interface PokemonEvolutionsProps {
+  evolutionChain: EvolutionChainItem[];
+  isLoadingEvolutions: boolean;
+}
+
+const PokemonEvolutions: React.FC<PokemonEvolutionsProps> = ({
+  evolutionChain,
+  isLoadingEvolutions,
+}) => {
+  if (evolutionChain.length <= 1) return null;
+
+  return (
+    <div className="bg-zinc-50 dark:bg-zinc-800/50 backdrop-blur-sm rounded-xl p-6 border border-zinc-200 dark:border-zinc-700">
+      <h3 className="text-xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-6">
+        Evolutions
+      </h3>
+      {isLoadingEvolutions ? (
+        <div className="flex justify-center py-8">
+          <Ring size={34} stroke={3} color="currentColor" />
+        </div>
+      ) : (
+        <div className="flex justify-center items-center gap-6 flex-wrap">
+          {evolutionChain.map((evolution, index) => (
+            <div key={evolution.name} className="flex items-center">
+              <div className="text-center">
+                <div className="w-20 h-20 bg-zinc-100 dark:bg-zinc-700 rounded-xl flex items-center justify-center mb-3 border border-zinc-200 dark:border-zinc-600">
+                  <img
+                    src={evolution.image}
+                    alt={evolution.name}
+                    className="w-16 h-16 object-contain"
+                  />
+                </div>
+                <p className="font-display font-semibold text-zinc-900 dark:text-zinc-100 text-sm capitalize">
+                  {evolution.name}
+                </p>
+                <p className="font-display font-medium text-zinc-500 dark:text-zinc-400 text-xs">
+                  #{evolution.id.padStart(3, "0")}
+                </p>
+              </div>
+              {index < evolutionChain.length - 1 && (
+                <div className="flex items-center ml-7">
+                  <ChevronRight className="w-8 h-8 text-zinc-400 dark:text-zinc-500 mb-10" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default PokemonEvolutions;

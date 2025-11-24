@@ -32,7 +32,7 @@ const MainContent = ({ activeTab, user }: MainContentProps) => {
     }
   };
 
-  return <div className="p-6 h-full">{renderContent()}</div>;
+  return <div className="p-6">{renderContent()}</div>;
 };
 
 export default MainContent;

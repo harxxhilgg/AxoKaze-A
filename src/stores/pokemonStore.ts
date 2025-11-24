@@ -186,6 +186,7 @@ export const usePokemonStore = create<PokemonStore>()(
       fetchEvolutionChain: async (speciesUrl: string) => {
         set({ isLoadingEvolutions: true });
         try {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
           const speciesResponse = await fetch(speciesUrl);
           const speciesData = await speciesResponse.json();
 
