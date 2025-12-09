@@ -1,7 +1,8 @@
 import { ChevronRight } from "lucide-react";
 import type { EvolutionChainItem } from "../../../../../../types";
-import { Ring } from "ldrs/react";
 import "ldrs/react/Ring.css";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface PokemonEvolutionsProps {
   evolutionChain: EvolutionChainItem[];
@@ -20,8 +21,41 @@ const PokemonEvolutions: React.FC<PokemonEvolutionsProps> = ({
         Evolutions
       </h3>
       {isLoadingEvolutions ? (
-        <div className="flex justify-center py-8">
-          <Ring size={34} stroke={3} color="currentColor" />
+        <div className="flex justify-center items-center gap-6 flex-wrap">
+          <SkeletonTheme
+            baseColor="rgba(156, 163, 175, 0.1)"
+            highlightColor="rgba(209, 213, 219, 0.1)"
+            direction="ltr"
+            borderRadius={20}
+          >
+            {[1, 2, 3].map((_, index) => (
+              <div key={index} className="flex items-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 rounded-xl mb-3 flex items-center justify-center">
+                    <Skeleton width={64} height={64} />
+                  </div>
+
+                  <Skeleton
+                    width={80}
+                    height={14}
+                    style={{ marginBottom: 6 }}
+                  />
+
+                  <Skeleton width={40} height={12} />
+                </div>
+
+                {index < 2 && (
+                  <div className="flex items-center ml-7">
+                    <Skeleton
+                      width={32}
+                      height={32}
+                      style={{ marginBottom: 40 }}
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </SkeletonTheme>
         </div>
       ) : (
         <div className="flex justify-center items-center gap-6 flex-wrap">

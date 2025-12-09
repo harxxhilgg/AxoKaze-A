@@ -30,7 +30,11 @@ const Landing = () => {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //! remove in prod
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       navigate("/register", { replace: false });
     } catch (e: unknown) {

@@ -7,11 +7,15 @@ import Header from "../../components/private/Dashboard/Header";
 import MainContent from "../../components/private/Dashboard/MainContent";
 import UserContextMenu from "../../components/private/Dashboard/Menus/UserContextMenu";
 import ProfilePopup from "../../components/private/Popups/ProfilePopup";
+import F1YearDropdown from "../../components/private/Dashboard/Menus/F1YearContextMenu";
+import RaceDetailsPopup from "../../components/private/Popups/RaceDetailsPopup";
+import DriverStandingsPopup from "../../components/private/Popups/DriverStandingsPopup";
+import ConstructorStandingsPopup from "../../components/private/Popups/ConstructorStandingsPopup";
 
 export type MenuTab =
   | "overview"
   | "pokedex"
-  | "movies"
+  | "f1"
   | "weather"
   | "crypto"
   | "profile";
@@ -19,9 +23,15 @@ export type MenuTab =
 const Dashboard = () => {
   const { user } = useAuthStore();
   useDocumentTitle("Dashboard - AxoKaze");
-  // const [loading, setLoading] = useState<boolean>(false);
-  const { showLogoutPopup, showUserContextMenu, showProfilePopup } =
-    useUIStore();
+  const {
+    showLogoutPopup,
+    showUserContextMenu,
+    showProfilePopup,
+    showF1YearDropdown,
+    showRaceDetailsPopup,
+    showDriverStandingsPopup,
+    showConstructorStandingsPopup,
+  } = useUIStore();
   const [activeTab, setActiveTab] = useState<MenuTab>("overview");
 
   return (
@@ -30,6 +40,10 @@ const Dashboard = () => {
       {/* {showUpdateProfilePopup && <UpdateProfilePopup />} */}
       {showUserContextMenu && <UserContextMenu user={user} />}
       {showProfilePopup && <ProfilePopup />}
+      {showF1YearDropdown && <F1YearDropdown />}
+      {showRaceDetailsPopup && <RaceDetailsPopup />}
+      {showDriverStandingsPopup && <DriverStandingsPopup />}
+      {showConstructorStandingsPopup && <ConstructorStandingsPopup />}
 
       <div className="relative min-h-screen bg-zinc-50 dark:bg-zinc-950 [--pattern-fg:var(--color-zinc-950)]/5 dark:[--pattern-fg:var(--color-zinc-50)]/10 selection:bg-zinc-50/15 transition-all">
         {/* main grid layout */}

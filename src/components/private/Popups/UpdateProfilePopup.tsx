@@ -28,7 +28,11 @@ const UpdateProfilePopup = ({ isEditable = false }: UpdateProfileProps) => {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // REMOVE IN PROD
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       setShowUpdateProfilePopup(false);
       toast.success("Logged out successfully.");

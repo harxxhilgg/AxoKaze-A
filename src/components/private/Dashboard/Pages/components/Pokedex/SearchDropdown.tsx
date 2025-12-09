@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Ring } from "ldrs/react";
 import "ldrs/react/Ring.css";
 import type { BasicPokemon } from "../../../../../../types";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 interface SearchDropdownProps {
   showDropdown: boolean;
@@ -40,7 +40,15 @@ const SearchResultItem = ({
   return (
     <div
       ref={itemRef}
-      onClick={onClick}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClick();
+      }}
+      onMouseDown={(e) => {
+        // prevent blur on the input when clicking dropdown item
+        e.preventDefault();
+      }}
       className={`
         flex items-center px-4 py-3 cursor-pointer transition-colors
         ${isHighlighted ? "bg-blue-50 dark:bg-blue-900/25" : "hover:bg-blue-50/50 dark:hover:bg-blue-900/10"}
@@ -50,7 +58,13 @@ const SearchResultItem = ({
       <div className="w-10 h-10 bg-zinc-100 dark:bg-zinc-700 rounded-lg flex items-center justify-center mr-3 overflow-hidden relative">
         {imageLoading && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <Ring size={16} stroke={2} color="currentColor" />
+            <SkeletonTheme
+              baseColor="rgba(156, 163, 175, 0.1)"
+              highlightColor="rgba(209, 213, 219, 0.1)"
+              direction="ltr"
+            >
+              <Skeleton height={45} width={45} />
+            </SkeletonTheme>
           </div>
         )}
 
@@ -59,7 +73,11 @@ const SearchResultItem = ({
           alt={pokemon.name}
           className={`w-8 h-8 object-contain transition-opacity duration-200 ${imageLoading ? "opacity-0" : "opacity-100"}`}
           onLoad={async () => {
-            // await new Promise((resolve) => setTimeout(resolve, 99999)); // test only
+            // ---------------
+
+            await new Promise((resolve) => setTimeout(resolve, 1000)); //! remove in prod
+
+            // ---------------
             setImageLoading(false);
           }}
           onError={() => {

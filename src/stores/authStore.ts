@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import api from "../lib/api";
 import type { User } from "../types";
+import { usePokemonStore } from "./pokemonStore";
+import { useF1Store } from "./f1Store";
 
 interface AuthState {
   user: User | null;
@@ -55,6 +57,14 @@ export const useAuthStore = create<AuthState>()(
             user: null,
             isAuthenticated: false,
           });
+
+          // clear memory state
+          usePokemonStore.getState().resetPokemonStore();
+          useF1Store.getState().resetF1Store();
+
+          // clear persisted data
+          localStorage.removeItem("pokemon-store");
+          localStorage.removeItem("f1-calendar-cache");
         }
       },
     }),

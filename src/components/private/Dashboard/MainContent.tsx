@@ -3,9 +3,9 @@ import type { User } from "../../../types";
 import Overview from "./Pages/Overview";
 import Profile from "./Pages/Profile";
 import Pokedex from "./Pages/Pokedex";
-import Movies from "./Pages/Movies";
 import Weather from "./Pages/Weather";
 import Crypto from "./Pages/Crypto";
+import F1 from "./Pages/F1";
 
 interface MainContentProps {
   activeTab: MenuTab;
@@ -19,8 +19,8 @@ const MainContent = ({ activeTab, user }: MainContentProps) => {
         return <Overview user={user} />;
       case "pokedex":
         return <Pokedex />;
-      case "movies":
-        return <Movies />;
+      case "f1":
+        return <F1 />;
       case "weather":
         return <Weather />;
       case "crypto":

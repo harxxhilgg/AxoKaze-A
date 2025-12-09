@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import {
   typeColors,
   type ExtendedPokemonDetails,
@@ -9,6 +12,8 @@ interface PokemonHeaderProps {
 }
 
 const PokemonHeader: React.FC<PokemonHeaderProps> = ({ selectedPokemon }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const getPrimaryType = (types: PokemonType[]) => {
     return types[0]?.type.name || "normal";
   };
@@ -34,22 +39,50 @@ const PokemonHeader: React.FC<PokemonHeaderProps> = ({ selectedPokemon }) => {
           {selectedPokemon.types.map((type) => (
             <span
               key={type.type.name}
-              className={`px-4 py-2 rounded-full text-white font-display font-semibold capitalize ${typeColors[type.type.name]?.badge || "bg-gray-500"} shadow-lg`}
+              className={`px-4 py-2 rounded-full text-white font-display font-semibold capitalize shadow-lg ${typeColors[type.type.name]?.badge || "bg-gray-500"} border ${typeColors[type.type.name]?.border || "bg-gray-700"}`}
             >
               {type.type.name}
             </span>
           ))}
         </div>
 
-        <div className="flex justify-center">
-          <img
-            src={
-              selectedPokemon.sprites.other["official-artwork"].front_default ||
-              selectedPokemon.sprites.front_default
-            }
-            alt={selectedPokemon.name}
-            className="w-64 h-64 object-contain drop-shadow-2xl z-10 relative"
-          />
+        <div className="flex justify-center select-none">
+          <div className="relative w-64 h-64">
+            {/* skeleton loader */}
+            {!imageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <SkeletonTheme
+                  baseColor="rgba(156, 163, 175, 0.1)"
+                  highlightColor="rgba(209, 213, 219, 0.1)"
+                  direction="ltr"
+                  borderRadius={20}
+                >
+                  <Skeleton height={256} width={256} className="rounded-2xl" />
+                </SkeletonTheme>
+              </div>
+            )}
+
+            {/* pokemon image */}
+            <img
+              src={
+                selectedPokemon.sprites.other["official-artwork"]
+                  .front_default || selectedPokemon.sprites.front_default
+              }
+              alt={selectedPokemon.name}
+              className={`w-64 h-64 object-contain drop-shadow-2xl z-10 relative transition-opacity duration-300 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={async () => {
+                // ---------------
+
+                await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+                // ---------------
+                setImageLoaded(true);
+              }}
+              onError={() => setImageLoaded(true)}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -9,6 +9,14 @@ interface UIState {
   setShowUpdateProfilePopup: (show: boolean) => void;
   showProfilePopup: boolean;
   setShowProfilePopup: (show: boolean) => void;
+  showF1YearDropdown: boolean;
+  setShowF1YearDropdown: (show: boolean) => void;
+  showRaceDetailsPopup: boolean;
+  setShowRaceDetailsPopup: (show: boolean) => void;
+  showDriverStandingsPopup: boolean;
+  setShowDriverStandingsPopup: (show: boolean) => void;
+  showConstructorStandingsPopup: boolean;
+  setShowConstructorStandingsPopup: (show: boolean) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -20,4 +28,14 @@ export const useUIStore = create<UIState>((set) => ({
   setShowUpdateProfilePopup: (show) => set({ showUpdateProfilePopup: show }),
   showProfilePopup: false,
   setShowProfilePopup: (show) => set({ showProfilePopup: show }),
+  showF1YearDropdown: false,
+  setShowF1YearDropdown: (show) => set({ showF1YearDropdown: show }),
+  showRaceDetailsPopup: false,
+  setShowRaceDetailsPopup: (show) => set({ showRaceDetailsPopup: show }),
+  showDriverStandingsPopup: false,
+  setShowDriverStandingsPopup: (show) =>
+    set({ showDriverStandingsPopup: show }),
+  showConstructorStandingsPopup: false,
+  setShowConstructorStandingsPopup: (show) =>
+    set({ showConstructorStandingsPopup: show }),
 }));

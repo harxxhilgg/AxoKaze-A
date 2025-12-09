@@ -12,7 +12,7 @@ interface HeaderProps {
 const tabLabels: Record<MenuTab, string> = {
   overview: "Overview",
   pokedex: "Pokédex",
-  movies: "Movies",
+  f1: "Formula 1",
   weather: "Weather",
   crypto: "Crypto",
   profile: "Profile",

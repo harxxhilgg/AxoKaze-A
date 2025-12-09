@@ -58,12 +58,15 @@ const Register = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  // TODO: COMPLETE TS
   const onRegister = async (data: RegisterFormData) => {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000)); //! REMOVE LATER IN PROD
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       const res = await api.post("/auth/register", {
         name: data.username,

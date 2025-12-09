@@ -42,12 +42,28 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "F1Reg";
+  src: url("./assets/fonts/Formula1-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "F1Wide";
+  src: url("./assets/fonts/Formula1-Wide.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme {
   --font-sans:
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display: "TX-02", ui-sans-serif, system-ui, sans-serif;
   --font-satoshi: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-f1reg: "F1Reg", ui-sans-serif, system-ui, sans-serif;
+  --font-f1wide: "F1Wide", ui-sans-serif, system-ui, sans-serif;
 }
 
 html,

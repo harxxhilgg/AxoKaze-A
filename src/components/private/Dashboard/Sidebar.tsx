@@ -1,8 +1,10 @@
-import { Clapperboard, CloudSun, Gpu, Home, Volleyball } from "lucide-react";
+import { CloudSun, Gpu, Home } from "lucide-react";
 import type { MenuTab } from "../../../pages/protected/Dashboard";
 import type { User } from "../../../types";
 import DefaultUser from "../../../assets/default-user.svg";
 // import JigglyPuff from "../../../assets/jiggly_puff.svg";
+import { SiF1 } from "react-icons/si";
+import { MdOutlineCatchingPokemon } from "react-icons/md";
 
 interface SidebarProps {
   activeTab: MenuTab;
@@ -23,12 +25,12 @@ const menuItems = [
   {
     id: "pokedex" as MenuTab,
     label: "Pokédex",
-    icon: Volleyball,
+    icon: MdOutlineCatchingPokemon,
   },
   {
-    id: "movies" as MenuTab,
-    label: "Movies",
-    icon: Clapperboard,
+    id: "f1" as MenuTab,
+    label: "Formula 1",
+    icon: SiF1,
   },
   {
     id: "weather" as MenuTab,
@@ -69,14 +71,14 @@ const Sidebar = ({ activeTab, onTabChange, user }: SidebarProps) => {
               <li key={item.id}>
                 <button
                   onClick={() => onTabChange(item.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-display text-sm transition-all duration-200 cursor-pointer active:scale-95
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 h-10 rounded-lg font-display text-sm transition-all duration-200 cursor-pointer active:scale-95
                     ${
                       isActive
                         ? "bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold"
                         : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-zinc-100"
                     }`}
                 >
-                  <Icon size={18} />
+                  <Icon size={20} />
                   <span>{item.label}</span>
                 </button>
               </li>
@@ -92,20 +94,20 @@ const Sidebar = ({ activeTab, onTabChange, user }: SidebarProps) => {
           }}
           onContextMenu={() => {
             // e.preventDefault();
-            // TODO: ADD CONTEXT MENU - 1. UPDATE PROFILE, 2. LOGOUT...s
+            // TODO: ADD CONTEXT MENU - 1. UPDATE PROFILE, 2. LOGOUT, ...
           }}
-          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg font-display text-sm transition-all duration-200 cursor-pointer active:scale-95 border border-dashed border-zinc-900/20 dark:border-zinc-50/20
+          className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg font-display text-sm transition-all duration-200 cursor-pointer active:scale-95 border border-dashed border-zinc-900 dark:border-zinc-50/20
             ${
               isProfileActive
-                ? "bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold"
+                ? "text-zinc-900 dark:text-zinc-100 font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-zinc-100"
                 : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-zinc-100"
             }`}
         >
-          <div className="border-2 border-zinc-700 rounded-full flex items-center justify-center overflow-hidden">
+          <div className="border border-zinc-700 rounded-full flex items-center justify-center overflow-hidden">
             {user?.profilePicture ? (
               <img
                 src={user.profilePicture}
-                className="w-8 h-8 rounded-full object-cover"
+                className="w-10 h-10 rounded-full object-cover"
                 referrerPolicy="no-referrer"
                 alt="Profile"
               />

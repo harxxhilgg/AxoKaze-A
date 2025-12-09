@@ -1,96 +1,13 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type {
+  EvolutionChainData,
+  EvolutionChainItem,
+  PokemonStore,
+} from "../types";
 
-interface BasicPokemon {
-  name: string;
-  url: string;
-}
-
-interface PokemonType {
-  slot: number;
-  type: {
-    name: string;
-    url: string;
-  };
-}
-
-interface PokemonStat {
-  base_stat: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-}
-
-interface PokemonAbility {
-  ability: {
-    name: string;
-    url: string;
-  };
-  is_hidden: boolean;
-  slot: number;
-}
-
-interface ExtendedPokemonDetails {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-  types: PokemonType[];
-  stats: PokemonStat[];
-  abilities: PokemonAbility[];
-  sprites: {
-    front_default: string;
-    back_default: string;
-    other: {
-      "official-artwork": {
-        front_default: string;
-      };
-    };
-  };
-  species: {
-    url: string;
-  };
-}
-
-interface EvolutionChainItem {
-  name: string;
-  id: string;
-  image: string;
-}
-
-interface PokemonStore {
-  // state
-  allPokemon: BasicPokemon[];
-  selectedPokemon: ExtendedPokemonDetails | null;
-  evolutionChain: EvolutionChainItem[];
-  searchTerm: string;
-  isLoadingList: boolean;
-  isLoadingDetails: boolean;
-  isLoadingEvolutions: boolean;
-  hasLoadedOnce: boolean;
-
-  // actions
-  fetchAllPokemon: () => Promise<void>;
-  fetchPokemonDetails: (pokemonUrl: string) => Promise<void>;
-  fetchEvolutionChain: (speciesUrl: string) => Promise<void>;
-  setSelectedPokemon: (pokemon: ExtendedPokemonDetails | null) => void;
-  setSearchTerm: (term: string) => void;
-  clearSelectedPokemon: () => void;
-  clearSearch: () => void;
-}
-
-interface EvolutionChainData {
-  species: {
-    name: string;
-    url: string;
-  };
-  evolves_to: EvolutionChainData[];
-}
-
-// Helper function to parse evolution chain
+// helper function to parse evolution chain
 const parseEvolutionChain = (
   chain: EvolutionChainData
 ): EvolutionChainItem[] => {
@@ -133,7 +50,7 @@ export const usePokemonStore = create<PokemonStore>()(
 
         try {
           const res = await fetch(
-            "https://pokeapi.co/api/v2/pokemon?limit=1000"
+            "https://pokeapi.co/api/v2/pokemon?limit=10000"
           );
 
           if (!res.ok) {
@@ -148,7 +65,7 @@ export const usePokemonStore = create<PokemonStore>()(
             isLoadingList: false,
           });
 
-          toast.success("Pokemon database loaded!");
+          // toast.success("Pokemon database loaded!");
         } catch (error) {
           console.log("Error fetching pokemon list: ", error);
           toast.error("Failed to load pokemon database. Please try again.");
@@ -174,7 +91,7 @@ export const usePokemonStore = create<PokemonStore>()(
             isLoadingDetails: false,
           });
 
-          // Automatically fetch evolution chain
+          // automatically fetch evolution chain
           get().fetchEvolutionChain(data.species.url);
         } catch (error) {
           console.error("Error fetching pokemon details: ", error);
@@ -185,8 +102,13 @@ export const usePokemonStore = create<PokemonStore>()(
 
       fetchEvolutionChain: async (speciesUrl: string) => {
         set({ isLoadingEvolutions: true });
+
         try {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          // ---------------
+
+          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+          // ---------------
           const speciesResponse = await fetch(speciesUrl);
           const speciesData = await speciesResponse.json();
 
@@ -204,22 +126,41 @@ export const usePokemonStore = create<PokemonStore>()(
       },
 
       // set selected pokemon
-      setSelectedPokemon: (pokemon) => set({ selectedPokemon: pokemon }),
+      setSelectedPokemon: (pokemon) => {
+        set({ selectedPokemon: pokemon });
+      },
 
       // set search term
-      setSearchTerm: (term) => set({ searchTerm: term }),
+      setSearchTerm: (term) => {
+        set({ searchTerm: term });
+      },
 
       // clear selected pokemon
-      clearSelectedPokemon: () =>
-        set({ selectedPokemon: null, evolutionChain: [] }),
+      clearSelectedPokemon: () => {
+        set({ selectedPokemon: null, evolutionChain: [] });
+      },
 
       // clear search and reset to initial state
-      clearSearch: () =>
+      clearSearch: () => {
         set({
           selectedPokemon: null,
           evolutionChain: [],
           searchTerm: "",
-        }),
+        });
+      },
+
+      resetPokemonStore: () => {
+        set({
+          allPokemon: [],
+          selectedPokemon: null,
+          evolutionChain: [],
+          searchTerm: "",
+          isLoadingList: false,
+          isLoadingDetails: false,
+          isLoadingEvolutions: false,
+          hasLoadedOnce: false,
+        });
+      },
     }),
     {
       name: "pokemon-store",

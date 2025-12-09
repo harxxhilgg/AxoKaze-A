@@ -1,8 +1,4 @@
-import {
-  typeColors,
-  type ExtendedPokemonDetails,
-  type PokemonType,
-} from "../../../../../../types";
+import { type ExtendedPokemonDetails } from "../../../../../../types";
 
 interface PokemonStatsProps {
   selectedPokemon: ExtendedPokemonDetails;
@@ -21,11 +17,20 @@ const PokemonStats: React.FC<PokemonStatsProps> = ({ selectedPokemon }) => {
     return statNames[statName] || statName;
   };
 
-  const getPrimaryType = (types: PokemonType[]) => {
-    return types[0]?.type.name || "normal";
+  const getStatColor = (statValue: number) => {
+    if (statValue >= 180) return "bg-gradient-to-r from-pink-500 to-rose-500"; // Mythical
+    if (statValue >= 150)
+      return "bg-gradient-to-r from-purple-500 to-violet-600"; // Legendary
+    if (statValue >= 130)
+      return "bg-gradient-to-r from-emerald-500 to-green-600"; // Exceptional
+    if (statValue >= 110) return "bg-gradient-to-r from-blue-500 to-cyan-500"; // Excellent
+    if (statValue >= 90) return "bg-gradient-to-r from-teal-500 to-blue-500"; // Great
+    if (statValue >= 70) return "bg-gradient-to-r from-yellow-500 to-amber-500"; // Good
+    if (statValue >= 50)
+      return "bg-gradient-to-r from-orange-500 to-yellow-500"; // Average
+    if (statValue >= 30) return "bg-gradient-to-r from-red-500 to-orange-500"; // Below Average
+    return "bg-gradient-to-r from-red-700 to-red-500"; // Poor
   };
-
-  const primaryType = getPrimaryType(selectedPokemon.types);
 
   return (
     <div className="bg-zinc-50 dark:bg-zinc-800/50 backdrop-blur-sm rounded-xl p-6 border border-zinc-200 dark:border-zinc-700">
@@ -45,7 +50,7 @@ const PokemonStats: React.FC<PokemonStatsProps> = ({ selectedPokemon }) => {
             </div>
             <div className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-3">
               <div
-                className={`h-3 rounded-full transition-all duration-1000 ${typeColors[primaryType]?.badge || "bg-gray-500"}`}
+                className={`h-3 rounded-full transition-all duration-1000 ${getStatColor(stat.base_stat)}`}
                 style={{
                   width: `${Math.min((stat.base_stat / 200) * 100, 100)}%`,
                 }}

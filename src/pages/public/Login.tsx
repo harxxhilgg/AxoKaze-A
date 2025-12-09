@@ -94,7 +94,11 @@ const Login = () => {
         }
       */
 
-      await new Promise((resolve) => setTimeout(resolve, 500)); // REMOVE LATER IN PROD
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       const res = await api.post("/auth/login", {
         email: data.email,
@@ -137,7 +141,11 @@ const Login = () => {
     try {
       setLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 500)); // REMOVE LATER IN PROD
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       const res = await api.post("/auth/verify-otp", {
         email: getCredValues("email"),

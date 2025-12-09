@@ -31,6 +31,10 @@ const Pokedex = () => {
   const dropdownRef = useRef<HTMLDivElement>(null!);
   const dropdownItemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  useEffect(() => {
+    fetchAllPokemon();
+  }, [fetchAllPokemon]);
+
   const filterPokemon = useCallback(
     (term: string) => {
       if (!term.trim()) {
@@ -110,12 +114,21 @@ const Pokedex = () => {
     }
   };
 
-  const handleInputBlur = () => {
+  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    // Check if the blur is caused by clicking on dropdown
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    const dropdown = dropdownRef.current;
+
+    // If clicking inside dropdown, don't hide it
+    if (dropdown && dropdown.contains(relatedTarget)) {
+      return;
+    }
+
     // Small delay to allow click events on dropdown items to fire first
     setTimeout(() => {
       setShowDropdown(false);
       setHighlightedIndex(-1);
-    }, 150);
+    }, 200);
   };
 
   const setItemRef = useCallback(
@@ -139,7 +152,7 @@ const Pokedex = () => {
     setFilteredPokemon([]);
   };
 
-  // Highlight search term in Pokemon names
+  // highlight search term in Pokemon names
   const highlightSearchTerm = (name: string, searchTerm: string) => {
     if (!searchTerm.trim()) {
       return <span className="font-bold">{name}</span>;
@@ -166,13 +179,9 @@ const Pokedex = () => {
     );
   };
 
-  useEffect(() => {
-    fetchAllPokemon();
-  }, [fetchAllPokemon]);
-
   return (
     <div className="bg-white dark:bg-zinc-900 p-8 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
-      {/* Search Section */}
+      {/* search Section */}
       <div className="relative mb-8">
         <div className="relative">
           <input
@@ -231,7 +240,7 @@ const Pokedex = () => {
         />
       </div>
 
-      {/* Pokemon Details */}
+      {/* pokemon Details */}
       {isLoadingDetails ? (
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
