@@ -39,6 +39,16 @@ const normalizeRace = (race: any) => {
     });
   }
 
+  if (race.SprintQualifying) {
+    sessions.push({
+      type: "SPRINT QUALI",
+      dateTimeUTC: buildDateTime(
+        race.SprintQualifying.date,
+        race.SprintQualifying.time
+      ),
+    });
+  }
+
   if (race.Qualifying) {
     sessions.push({
       type: "QUALI",
@@ -231,6 +241,8 @@ export const useF1Store = create<F1Store>()(
         try {
           set({ isLoadingResults: true, error: null });
 
+          const cachedRace = get().getRaceByRound(round);
+
           const res = await fetch(
             `https://api.jolpi.ca/ergast/f1/${year}/${round}/results.json`
           );
@@ -260,6 +272,7 @@ export const useF1Store = create<F1Store>()(
             date: raceData.date,
             time: raceData.time,
             results: raceData.Results || [],
+            sessions: cachedRace?.sessions || [],
           };
 
           set({

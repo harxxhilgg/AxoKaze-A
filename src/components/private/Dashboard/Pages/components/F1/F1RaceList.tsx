@@ -3,7 +3,6 @@ import { useF1Store } from "../../../../../../stores/f1Store";
 import { FaCaretRight } from "react-icons/fa";
 import { getFlagUrl } from "../../../../../../lib/countryCodeMap";
 import { useUIStore } from "../../../../../../stores";
-import toast from "react-hot-toast";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { getTimeZones } from "@vvo/tzdb";
 
@@ -71,15 +70,8 @@ const F1RaceList = () => {
     return now >= raceDate;
   }
 
-  const handleRaceClick = async (raceDate: string, round: number) => {
-    // Check if race has results available
-    if (!shouldShowResults(raceDate)) {
-      toast.error(
-        "This race hasn't finished yet. Please wait until the race is completed to view results."
-      );
-      return;
-    }
-
+  const handleRaceClick = async (round: number) => {
+    // always open popup - will show sessions or results inside
     await loadRaceResults(selectedYear, round);
     setShowRaceDetailsPopup(true);
   };
@@ -140,12 +132,8 @@ const F1RaceList = () => {
           return (
             <div
               key={race.round}
-              onClick={() => handleRaceClick(race.date, race.round)}
-              className={`relative h-[220px] rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300 select-none ${
-                hasResults
-                  ? "hover:shadow-lg cursor-pointer active:scale-95"
-                  : "cursor-not-allowed opacity-75"
-              }`}
+              onClick={() => handleRaceClick(race.round)}
+              className="relative h-[220px] rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300 select-none hover:shadow-lg cursor-pointer active:scale-95"
             >
               {/* flag */}
               <div

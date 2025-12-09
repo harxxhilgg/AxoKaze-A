@@ -1,4 +1,10 @@
-export type SessionType = "FP1" | "FP2" | "FP3" | "QUALI" | "SPRINT";
+export type SessionType =
+  | "FP1"
+  | "FP2"
+  | "FP3"
+  | "SPRINT QUALI"
+  | "QUALI"
+  | "SPRINT";
 
 export type RaceSession = {
   type: SessionType;
@@ -70,6 +76,7 @@ export type RaceDetails = {
   date: string;
   time: string;
   results: RaceResult[];
+  sessions: RaceSession[];
 };
 
 export type DriverStanding = {
@@ -131,6 +138,7 @@ export type F1Store = {
   loadRaces: (year: number) => Promise<void>;
   setSelectedYear: (year: number) => void;
   getCurrentRaces: () => Race[];
+  getRaceByRound: (round: number) => Race | undefined;
   loadRaceResults: (year: number, round: number) => Promise<void>;
   loadDriverStandings: (year: number) => Promise<void>;
   loadConstructorStandings: (year: number) => Promise<void>;
