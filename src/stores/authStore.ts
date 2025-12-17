@@ -4,6 +4,7 @@ import api from "../lib/api";
 import type { User } from "../types";
 import { usePokemonStore } from "./pokemonStore";
 import { useF1Store } from "./f1Store";
+import { useWeatherStore } from "./weatherStore";
 
 interface AuthState {
   user: User | null;
@@ -61,10 +62,12 @@ export const useAuthStore = create<AuthState>()(
           // clear memory state
           usePokemonStore.getState().resetPokemonStore();
           useF1Store.getState().resetF1Store();
+          useWeatherStore.getState().resetWeatherStore();
 
           // clear persisted data
           localStorage.removeItem("pokemon-store");
           localStorage.removeItem("f1-calendar-cache");
+          localStorage.removeItem("weather-storage");
         }
       },
     }),

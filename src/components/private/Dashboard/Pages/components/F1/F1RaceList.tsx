@@ -123,9 +123,11 @@ const F1RaceList = () => {
 
   return (
     <div>
-      <h3 className="text-xl font-f1reg mb-6 ml-1">{selectedYear} Season</h3>
+      <h3 className="text-lg lg:text-xl font-f1reg mb-4 lg:mb-6 ml-1">
+        {selectedYear} Season
+      </h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
         {races.map((race) => {
           const hasResults = shouldShowResults(race.date);
 
@@ -133,7 +135,7 @@ const F1RaceList = () => {
             <div
               key={race.round}
               onClick={() => handleRaceClick(race.round)}
-              className="relative h-[220px] rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300 select-none hover:shadow-lg cursor-pointer active:scale-95"
+              className="relative h-[180px] sm:h-[200px] lg:h-[220px] rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden transition-all duration-300 select-none hover:shadow-lg cursor-pointer active:scale-95"
             >
               {/* flag */}
               <div
@@ -146,20 +148,20 @@ const F1RaceList = () => {
               {/* gradient + blur overlay */}
               <div className="absolute inset-0 backdrop-blur-xs bg-linear-to-t from-white/80 via-white/60 to-white/40 dark:from-zinc-900/90 dark:via-zinc-900/70 dark:to-zinc-900/50" />
 
-              <div className="relative z-10 h-full p-4 flex flex-col justify-between font-f1reg">
+              <div className="relative z-10 h-full p-3 sm:p-4 flex flex-col justify-between font-f1reg">
                 <div>
-                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
+                  <h3 className="text-base sm:text-lg font-semibold text-zinc-900 dark:text-zinc-100 line-clamp-2">
                     {race.raceName}
                   </h3>
 
-                  <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-                    <p>
+                  <div className="mt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">
+                    <p className="line-clamp-1">
                       {race.circuit.location.locality},{" "}
                       {race.circuit.location.country} • Round {race.round}
                     </p>
 
                     <div className="flex gap-2">
-                      <p className="mt-0.5">
+                      <p className="mt-0.5 line-clamp-1">
                         {formateDate(race.date)} •{" "}
                         {formatToLocalTime(race.time)}
                       </p>
@@ -168,8 +170,8 @@ const F1RaceList = () => {
                 </div>
 
                 {hasResults && (
-                  <button className="inline-flex items-center gap-1 text-sm font-medium text-[#FF180190] hover:gap-2 transition-all cursor-pointer">
-                    View Results <FaCaretRight size={18} className="mt-0.5" />
+                  <button className="inline-flex items-center gap-1 text-xs sm:text-sm font-medium text-[#FF180190] hover:gap-2 transition-all cursor-pointer">
+                    View Results <FaCaretRight size={16} className="mt-0.5" />
                   </button>
                 )}
               </div>
@@ -178,7 +180,7 @@ const F1RaceList = () => {
         })}
       </div>
 
-      <p className="text-center mt-6 font-f1wide text-xs text-zinc-950/70 dark:text-zinc-50/70">
+      <p className="text-center mt-4 lg:mt-6 font-f1wide text-xs text-zinc-950/70 dark:text-zinc-50/70">
         All times are shown in your local timezone ({tzAbbr})
       </p>
     </div>

@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X, Search } from "lucide-react";
 import { usePokemonStore } from "../../../../stores";
-import SearchDropdown from "./components/Pokedex/SearchDropdown";
+import SearchDropdown from "./components/Pokedex/PokemonSearchDropdown";
 import PokemonHeader from "./components/Pokedex/PokemonHeader";
 import PokemonAbout from "./components/Pokedex/PokemonAbout";
 import PokemonStats from "./components/Pokedex/PokemonStats";
 import PokemonEvolutions from "./components/Pokedex/PokemonEvolutions";
+import PokemonSkeleton from "./components/Pokedex/PokemonSkeleton";
 import { type BasicPokemon } from "../../../../types";
 
 const Pokedex = () => {
@@ -242,14 +243,7 @@ const Pokedex = () => {
 
       {/* pokemon Details */}
       {isLoadingDetails ? (
-        <div className="flex items-center justify-center py-20">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-zinc-600 dark:text-zinc-400 font-display">
-              Loading Pokémon...
-            </p>
-          </div>
-        </div>
+        <PokemonSkeleton />
       ) : selectedPokemon ? (
         <div className="space-y-8">
           <PokemonHeader selectedPokemon={selectedPokemon} />

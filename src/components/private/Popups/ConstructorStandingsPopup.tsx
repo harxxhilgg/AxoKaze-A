@@ -24,11 +24,11 @@ const ConstructorStandingsPopup = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs selection:bg-zinc-50/15 cursor-pointer"
       onClick={handleClose}
     >
       <div
-        className={`bg-white dark:bg-zinc-900 rounded-xl w-[90vw] max-w-5xl max-h-[85vh] overflow-hidden flex flex-col transform transition-all duration-300 border-2 border-zinc-50/10 ${isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+        className={`bg-white dark:bg-zinc-900 rounded-xl w-[90vw] max-w-5xl max-h-[85vh] overflow-hidden flex flex-col transform transition-all duration-300 border-2 border-zinc-50/10 cursor-default ${isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* header */}

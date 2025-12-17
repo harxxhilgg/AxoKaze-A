@@ -1,6 +1,5 @@
 import { ChevronRight } from "lucide-react";
 import type { EvolutionChainItem } from "../../../../../../types";
-import "ldrs/react/Ring.css";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -13,7 +12,7 @@ const PokemonEvolutions: React.FC<PokemonEvolutionsProps> = ({
   evolutionChain,
   isLoadingEvolutions,
 }) => {
-  if (evolutionChain.length <= 1) return null;
+  if (evolutionChain.length <= 1 && !isLoadingEvolutions) return null;
 
   return (
     <div className="bg-zinc-50 dark:bg-zinc-800/50 backdrop-blur-sm rounded-xl p-6 border border-zinc-200 dark:border-zinc-700">
@@ -26,31 +25,22 @@ const PokemonEvolutions: React.FC<PokemonEvolutionsProps> = ({
             baseColor="rgba(156, 163, 175, 0.1)"
             highlightColor="rgba(209, 213, 219, 0.1)"
             direction="ltr"
-            borderRadius={20}
           >
-            {[1, 2, 3].map((_, index) => (
-              <div key={index} className="flex items-center">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="flex items-center">
                 <div className="text-center">
-                  <div className="w-20 h-20 rounded-xl mb-3 flex items-center justify-center">
-                    <Skeleton width={64} height={64} />
-                  </div>
-
                   <Skeleton
                     width={80}
-                    height={14}
-                    style={{ marginBottom: 6 }}
+                    height={80}
+                    borderRadius={12}
+                    className="mb-3"
                   />
-
-                  <Skeleton width={40} height={12} />
+                  <Skeleton width={80} height={14} className="mb-1" />
+                  <Skeleton width={50} height={12} />
                 </div>
-
-                {index < 2 && (
+                {i < 3 && (
                   <div className="flex items-center ml-7">
-                    <Skeleton
-                      width={32}
-                      height={32}
-                      style={{ marginBottom: 40 }}
-                    />
+                    <ChevronRight className="w-8 h-8 text-zinc-300 dark:text-zinc-600 mb-10" />
                   </div>
                 )}
               </div>

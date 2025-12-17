@@ -57,7 +57,7 @@ const PokemonHeader: React.FC<PokemonHeaderProps> = ({ selectedPokemon }) => {
                   direction="ltr"
                   borderRadius={20}
                 >
-                  <Skeleton height={256} width={256} className="rounded-2xl" />
+                  <Skeleton height={256} width={256} />
                 </SkeletonTheme>
               </div>
             )}
@@ -72,14 +72,7 @@ const PokemonHeader: React.FC<PokemonHeaderProps> = ({ selectedPokemon }) => {
               className={`w-64 h-64 object-contain drop-shadow-2xl z-10 relative transition-opacity duration-300 ${
                 imageLoaded ? "opacity-100" : "opacity-0"
               }`}
-              onLoad={async () => {
-                // ---------------
-
-                await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-                // ---------------
-                setImageLoaded(true);
-              }}
+              onLoad={() => setImageLoaded(true)}
               onError={() => setImageLoaded(true)}
             />
           </div>

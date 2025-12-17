@@ -49,17 +49,17 @@ const normalizeRace = (race: any) => {
     });
   }
 
-  if (race.Qualifying) {
-    sessions.push({
-      type: "QUALI",
-      dateTimeUTC: buildDateTime(race.Qualifying.date, race.Qualifying.time),
-    });
-  }
-
   if (race.Sprint) {
     sessions.push({
       type: "SPRINT",
       dateTimeUTC: buildDateTime(race.Sprint.date, race.Sprint.time),
+    });
+  }
+
+  if (race.Qualifying) {
+    sessions.push({
+      type: "QUALI",
+      dateTimeUTC: buildDateTime(race.Qualifying.date, race.Qualifying.time),
     });
   }
 
@@ -86,7 +86,7 @@ const normalizeRace = (race: any) => {
 export const useF1Store = create<F1Store>()(
   persist(
     (set, get) => ({
-      selectedYear: 2025, // CACHED (saved to localStorage)
+      selectedYear: 2026, // default year - CACHED (saved to localStorage)
       racesByYear: {}, // CACHED (main cache)
       selectedRace: null, // CACHED but temporary
       isLoading: false, // CACHED (doesn't matter)
@@ -167,11 +167,10 @@ export const useF1Store = create<F1Store>()(
             },
             isLoading: false, // update loading state when completion
           }));
-
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (e: any) {
+        } catch (e) {
+          const error = e as Error;
           set({
-            error: e.message ?? "Unknown error",
+            error: error.message ?? "Unknown error",
             isLoading: false,
           });
         }
@@ -243,6 +242,11 @@ export const useF1Store = create<F1Store>()(
 
           const cachedRace = get().getRaceByRound(round);
 
+          // if no cached race found, can't display anything
+          if (!cachedRace) {
+            throw new Error("Race not found in cache");
+          }
+
           const res = await fetch(
             `https://api.jolpi.ca/ergast/f1/${year}/${round}/results.json`
           );
@@ -254,6 +258,32 @@ export const useF1Store = create<F1Store>()(
           const data = await res.json();
           const raceData = data.MRData.RaceTable.Races[0];
 
+          // if race hasn't happened yet (no results), use cached race data
+          if (!raceData) {
+            const raceDetails: RaceDetails = {
+              season: String(year),
+              round: String(cachedRace.round),
+              raceName: cachedRace.raceName,
+              circuit: {
+                circuitId: cachedRace.circuit.circuitId,
+                circuitUrl: cachedRace.circuit.circuitUrl || "",
+                circuitName: cachedRace.circuit.circuitName,
+                location: cachedRace.circuit.location,
+              },
+              date: cachedRace.date,
+              time: cachedRace.time,
+              results: [],
+              sessions: cachedRace.sessions || [],
+            };
+
+            set({
+              selectedRace: raceDetails,
+              isLoadingResults: false,
+            });
+            return;
+          }
+
+          // race has results - use API data
           const raceDetails: RaceDetails = {
             season: raceData.season,
             round: raceData.round,
@@ -279,11 +309,10 @@ export const useF1Store = create<F1Store>()(
             selectedRace: raceDetails,
             isLoadingResults: false,
           });
-
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (e: any) {
+        } catch (e) {
+          const error = e as Error;
           set({
-            error: e.message ?? "Unknown error",
+            error: error.message ?? "Unknown error",
             isLoadingResults: false,
           });
         }
@@ -321,11 +350,10 @@ export const useF1Store = create<F1Store>()(
             driverStandings,
             isLoadingDriverStandings: false,
           });
-
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (e: any) {
+        } catch (e) {
+          const error = e as Error;
           set({
-            error: e.message ?? "Unknown error",
+            error: error.message ?? "Unknown error",
             isLoadingDriverStandings: false,
           });
         }
@@ -356,10 +384,10 @@ export const useF1Store = create<F1Store>()(
             constructorStandings,
             isLoadingConstructorStandings: false,
           });
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (e: any) {
+        } catch (e) {
+          const error = e as Error;
           set({
-            error: e.message ?? "Unknown error",
+            error: error.message ?? "Unknown error",
             isLoadingConstructorStandings: false,
           });
         }
@@ -367,7 +395,7 @@ export const useF1Store = create<F1Store>()(
 
       resetF1Store: () => {
         set({
-          selectedYear: 2025,
+          selectedYear: 2026, // change default year
           racesByYear: {},
           selectedRace: null,
           driverStandings: null,
@@ -381,7 +409,7 @@ export const useF1Store = create<F1Store>()(
     }),
     {
       name: "f1-calendar-cache",
-      version: 8, //! increment if structure changes
+      version: 9, //! increment if structure changes
     }
   )
 );
