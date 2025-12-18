@@ -1,3 +1,4 @@
+import { ChevronDown, ChevronUp } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -25,8 +26,17 @@ const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data }) => {
         <h3 className="text-lg font-display font-semibold text-zinc-900 dark:text-zinc-100">
           Precipitation today
         </h3>
-        <p className="text-sm font-display text-zinc-500 dark:text-zinc-400">
-          +{maxPrecip}% -{minPrecip}%
+
+        <p className="flex items-center gap-2 text-sm font-display text-zinc-500 dark:text-zinc-400">
+          <span className="flex items-center gap-1">
+            <ChevronUp className="h-4 w-4" />
+            {maxPrecip}%
+          </span>
+          ‧
+          <span className="flex items-center gap-1">
+            <ChevronDown className="h-4 w-4" />
+            {minPrecip}%
+          </span>
         </p>
       </div>
 
@@ -52,10 +62,12 @@ const PrecipitationChart: React.FC<PrecipitationChartProps> = ({ data }) => {
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#18181b",
+              backgroundColor: "#18181b90",
               border: "1px solid #27272a",
-              borderRadius: "8px",
+              borderRadius: "12px",
               color: "#fff",
+              fontFamily: "tx-02",
+              fontWeight: "bold",
             }}
             formatter={(value: number) => [`${value}%`, "Chance"]}
           />

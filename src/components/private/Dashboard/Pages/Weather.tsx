@@ -253,12 +253,12 @@ const Weather = () => {
             <ForecastSkeleton />
           ) : forecast ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Weekly Forecast - takes 1 column */}
+              {/* weekly Forecast - takes 1 column */}
               <div className="lg:col-span-1">
                 <WeeklyForecast dailyData={forecast.daily} />
               </div>
 
-              {/* Charts - takes 2 columns */}
+              {/* charts - takes 2 columns */}
               <div className="lg:col-span-2 space-y-6">
                 <TemperatureChart data={tempChartData} />
                 <PrecipitationChart data={precipChartData} />
@@ -271,16 +271,19 @@ const Weather = () => {
           <div className="text-6xl mb-6">
             {locationPermissionDenied ? "🌍" : "⛅"}
           </div>
+
           <h3 className="text-2xl font-display font-bold text-zinc-900 dark:text-zinc-100 mb-4">
             {locationPermissionDenied
               ? "Search for a Location"
               : "Checking Your Location..."}
           </h3>
+
           <p className="font-display font-medium text-zinc-600 dark:text-zinc-400 mb-2">
             {locationPermissionDenied
               ? "Search for any city to see current weather and forecast"
               : "We'll show weather for your current location"}
           </p>
+
           <p className="font-display text-sm text-zinc-500 dark:text-zinc-500 flex items-center justify-center gap-2">
             <MapPin size={14} />
             Try "New York", "London", or "Tokyo"

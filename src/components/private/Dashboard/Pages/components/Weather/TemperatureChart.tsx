@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useWeatherStore } from "../../../../../../stores";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface TemperatureChartProps {
   data: Array<{
@@ -19,15 +20,26 @@ interface TemperatureChartProps {
 const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
   const { temperatureUnit } = useWeatherStore();
 
+  const maxTemp = Math.max(...data.map((d) => d.temp));
+  const minTemp = Math.min(...data.map((d) => d.temp));
+
   return (
     <div className="bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800">
       <div className="mb-4">
         <h3 className="text-lg font-display font-semibold text-zinc-900 dark:text-zinc-100">
           Temperatures today
         </h3>
-        <p className="text-sm font-display text-zinc-500 dark:text-zinc-400">
-          +{Math.max(...data.map((d) => d.temp))}° -
-          {Math.min(...data.map((d) => d.temp))}°
+
+        <p className="flex items-center gap-2 text-sm font-display text-zinc-500 dark:text-zinc-400">
+          <span className="flex items-center gap-1">
+            <ChevronUp className="h-4 w-4" />
+            {maxTemp}°
+          </span>
+          ‧
+          <span className="flex items-center gap-1">
+            <ChevronDown className="h-4 w-4" />
+            {minTemp}°
+          </span>
         </p>
       </div>
 
@@ -59,10 +71,12 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({ data }) => {
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#18181b",
+              backgroundColor: "#18181b90",
               border: "1px solid #27272a",
-              borderRadius: "8px",
+              borderRadius: "12px",
               color: "#fff",
+              fontFamily: "tx-02",
+              fontWeight: "bold",
             }}
             formatter={(value: number) => [
               `${value}°${temperatureUnit}`,
