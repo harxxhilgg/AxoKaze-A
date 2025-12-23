@@ -77,11 +77,6 @@ export const usePokemonStore = create<PokemonStore>()(
         set({ isLoadingDetails: true });
 
         try {
-          // ---------------
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-          // ---------------
           const res = await fetch(pokemonUrl);
 
           if (!res.ok) {
@@ -109,11 +104,6 @@ export const usePokemonStore = create<PokemonStore>()(
         set({ isLoadingEvolutions: true });
 
         try {
-          // ---------------
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-          // ---------------
           const speciesResponse = await fetch(speciesUrl);
           const speciesData = await speciesResponse.json();
 

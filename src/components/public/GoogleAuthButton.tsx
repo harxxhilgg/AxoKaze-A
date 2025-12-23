@@ -21,12 +21,6 @@ const GoogleAuthButton = ({ mode, disabled }: GoogleAuthButtonProps) => {
     try {
       setLoading(true);
 
-      // ---------------
-
-      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-      // ---------------
-
       const res = await api.post("/auth/google-login", {
         credential: credentialResponse.credential,
       });
@@ -66,7 +60,7 @@ const GoogleAuthButton = ({ mode, disabled }: GoogleAuthButtonProps) => {
   };
 
   const getButtonText = () => {
-    if (loading) return "Signing in...";
+    if (loading) return "Loading...";
 
     return mode === "login" ? "Sign in with Google" : "Sign up with Google";
   };

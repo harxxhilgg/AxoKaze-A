@@ -17,7 +17,7 @@ const ProfilePopup = () => {
 
   return (
     <div
-      className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50 cursor-pointer"
+      className="fixed inset-0 backdrop-blur-xs backdrop-brightness-50 flex items-center justify-center z-50 cursor-pointer"
       onClick={() => setShowProfilePopup(false)}
     >
       <div

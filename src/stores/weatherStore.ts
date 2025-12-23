@@ -71,12 +71,6 @@ export const useWeatherStore = create<WeatherStore>()(
         try {
           set({ isLoadingWeather: true, error: null });
 
-          // ---------------
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-          // ---------------
-
           const res = await fetch(
             `${BASE_URL}/current.json?key=${API_KEY}&q=${location.lat},${location.lon}&aqi=no`
           );
@@ -86,12 +80,6 @@ export const useWeatherStore = create<WeatherStore>()(
           }
 
           const data = await res.json();
-
-          // ---------------
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-          // ---------------
 
           // fetch astronomy data separately
           const astroRes = await fetch(
@@ -141,12 +129,6 @@ export const useWeatherStore = create<WeatherStore>()(
 
         try {
           set({ isLoadingForecast: true, error: null });
-
-          // ---------------
-
-          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-          // ---------------
 
           const res = await fetch(
             `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location.lat},${location.lon}&days=7&aqi=no&alerts=no`

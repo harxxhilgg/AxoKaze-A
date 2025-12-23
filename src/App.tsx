@@ -8,11 +8,11 @@ import Dashboard from "./pages/protected/Dashboard";
 import ForgotPassword from "./pages/public/ForgotPassword";
 import Register from "./pages/public/Register";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { JellyTriangle } from "ldrs/react";
+import "ldrs/react/JellyTriangle.css";
 
 function App() {
-  const checkAuth = useAuthStore((s) => s.checkAuth);
-  const loading = useAuthStore((s) => s.loading);
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const { checkAuth, loading, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
@@ -20,8 +20,8 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        Checking Authentication...APP
+      <div className="flex h-screen items-center justify-center text-zinc-900 dark:text-zinc-100">
+        <JellyTriangle size={36} speed={1.5} color="currentColor" />
       </div>
     );
   }

@@ -17,7 +17,7 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       isAuthenticated: false,
       loading: true,
@@ -30,6 +30,25 @@ export const useAuthStore = create<AuthState>()(
       },
 
       checkAuth: async () => {
+        const wasAuthenticated = get().isAuthenticated;
+
+        // lazy check: if user was logged in before, trust localStorage
+        if (wasAuthenticated) {
+          set({ loading: false });
+
+          // verify in background
+          api
+            .get("/auth/get-profile")
+            .then((res) => {
+              set({ user: res.data.user, isAuthenticated: true });
+            })
+            .catch(() => {
+              set({ user: null, isAuthenticated: false });
+            });
+
+          return;
+        }
+
         try {
           const res = await api.get("/auth/get-profile");
 
@@ -39,7 +58,7 @@ export const useAuthStore = create<AuthState>()(
             loading: false,
           });
         } catch (error) {
-          console.log("checkAuth error:", error);
+          console.error("checkAuth error:", error);
           set({
             user: null,
             isAuthenticated: false,
@@ -73,6 +92,11 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+        // exclude loading from persistence - should always start true
+      }),
     }
   )
 );

@@ -46,7 +46,11 @@ const Crypto = () => {
   }, []);
 
   return (
-    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+    <SkeletonTheme
+      baseColor="rgba(156, 163, 175, 0.1)"
+      highlightColor="rgba(209, 213, 219, 0.1)"
+      direction="ltr"
+    >
       <div className="bg-white dark:bg-zinc-900 p-8 rounded-xl border border-zinc-200 dark:border-zinc-800">
         <h2 className="text-xl font-display font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
           Crypto

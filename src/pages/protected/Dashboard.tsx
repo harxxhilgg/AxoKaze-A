@@ -11,6 +11,7 @@ import F1YearDropdown from "../../components/private/Dashboard/Menus/F1YearConte
 import RaceDetailsPopup from "../../components/private/Popups/RaceDetailsPopup";
 import DriverStandingsPopup from "../../components/private/Popups/DriverStandingsPopup";
 import ConstructorStandingsPopup from "../../components/private/Popups/ConstructorStandingsPopup";
+// import Snowfall from "react-snowfall";
 
 export type MenuTab =
   | "overview"
@@ -72,6 +73,7 @@ const Dashboard = () => {
 
             {/* main content */}
             <div className="flex-1 overflow-auto bg-zinc-50 dark:bg-zinc-950">
+              {/* <Snowfall color="#F2F0EF" snowflakeCount={50} /> */}
               <MainContent activeTab={activeTab} user={user} />
             </div>
           </div>

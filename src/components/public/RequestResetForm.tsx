@@ -39,12 +39,6 @@ const RequestResetForm = () => {
         }
       */
 
-      // ---------------
-
-      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-      // ---------------
-
       const res = await api.post("/auth/forgot-password", {
         email: data.email,
       });

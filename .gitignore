@@ -27,3 +27,6 @@ dist-ssr
 *.sw?
 
 *.todo
+
+/AxoKaze-B
+/coverage

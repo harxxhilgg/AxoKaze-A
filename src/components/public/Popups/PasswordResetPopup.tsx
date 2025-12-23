@@ -15,7 +15,7 @@ const PasswordResetPopup = () => {
   };
 
   return (
-    <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50 cursor-pointer">
+    <div className="fixed inset-0 backdrop-blur-xs backdrop-brightness-50 flex items-center justify-center z-50 cursor-pointer">
       <div
         className={`flex flex-col justify-center bg-neutral-400 dark:bg-neutral-800 rounded-3xl p-8 w-180 h-80 transform transition-all duration-300 cursor-default ${isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"} selection:bg-zinc-50/15 border-2 border-zinc-50/10`}
         onClick={(e) => e.stopPropagation()}

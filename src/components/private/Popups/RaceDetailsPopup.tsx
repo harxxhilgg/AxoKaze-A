@@ -46,7 +46,7 @@ const RaceDetailsPopup = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs px-2 sm:px-4 selection:bg-zinc-50/15 cursor-pointer"
+      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs backdrop-brightness-50 px-2 sm:px-4 selection:bg-zinc-50/15 cursor-pointer"
       onClick={handleClose}
     >
       <div

@@ -7,6 +7,7 @@ const API_BASE_URL =
 export const api = axios.create({
   baseURL: API_BASE_URL,
   withCredentials: true,
+  timeout: 30000, // 30 sec for cold starts
 });
 
 // Endpoints that should NOT trigger token refresh on 401
@@ -71,9 +72,6 @@ api.interceptors.response.use(
 
       try {
         await api.post("/auth/refresh-token");
-
-        const { checkAuth } = useAuthStore.getState();
-        await checkAuth();
 
         processQueue();
         return api(originalRequest);

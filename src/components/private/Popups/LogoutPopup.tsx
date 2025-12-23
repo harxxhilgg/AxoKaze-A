@@ -21,12 +21,6 @@ const LogoutPopup = () => {
     try {
       setLoading(true);
 
-      // ---------------
-
-      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-      // ---------------
-
       await logout();
 
       setShowLogoutPopup(false);
@@ -41,7 +35,7 @@ const LogoutPopup = () => {
 
   return (
     <div
-      className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50 cursor-pointer"
+      className="fixed inset-0 backdrop-blur-xs backdrop-brightness-50 flex items-center justify-center z-50 cursor-pointer"
       onClick={() => !loading && setShowLogoutPopup(false)}
     >
       <div

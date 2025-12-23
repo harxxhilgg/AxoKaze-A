@@ -28,12 +28,6 @@ const UpdateProfilePopup = ({ isEditable = false }: UpdateProfileProps) => {
     try {
       setLoading(true);
 
-      // ---------------
-
-      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
-
-      // ---------------
-
       setShowUpdateProfilePopup(false);
       toast.success("Logged out successfully.");
     } catch (e) {
@@ -46,7 +40,7 @@ const UpdateProfilePopup = ({ isEditable = false }: UpdateProfileProps) => {
 
   return (
     <div
-      className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50 cursor-pointer"
+      className="fixed inset-0 backdrop-blur-xs backdrop-brightness-50 flex items-center justify-center z-50 cursor-pointer"
       onClick={() => !loading && setShowUpdateProfilePopup(false)}
     >
       <div
