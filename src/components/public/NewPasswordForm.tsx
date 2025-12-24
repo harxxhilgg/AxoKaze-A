@@ -54,6 +54,12 @@ const NewPasswordForm = ({ token }: { token: string }) => {
         }
       */
 
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
+
       const res = await api.post("/auth/reset-password", {
         token: token,
         newPassword: getPasswordValues("password"), // could use `confirmPassword` as well

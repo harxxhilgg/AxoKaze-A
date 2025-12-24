@@ -16,6 +16,8 @@ const Landing = () => {
     try {
       setLoading(true);
 
+      await new Promise((resolve) => setTimeout(resolve, 1000)); //! remove in prod
+
       navigate("/login", { replace: false });
     } catch (e: unknown) {
       console.error("Error going login page: ", e);
@@ -27,6 +29,12 @@ const Landing = () => {
   const onGoRegister = async () => {
     try {
       setLoading(true);
+
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       navigate("/register", { replace: false });
     } catch (e: unknown) {

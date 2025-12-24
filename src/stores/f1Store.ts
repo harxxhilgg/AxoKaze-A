@@ -119,6 +119,12 @@ export const useF1Store = create<F1Store>()(
           // update ui state and changes are persisted to localStorage for a sec
           set({ isLoading: true, error: null });
 
+          // ---------------
+
+          await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+          // ---------------
+
           const res = await fetch(
             `https://api.jolpi.ca/ergast/f1/${year}/races/`
           );

@@ -73,6 +73,11 @@ const SearchResultItem = ({
           alt={pokemon.name}
           className={`w-8 h-8 object-contain transition-opacity duration-200 ${imageLoading ? "opacity-0" : "opacity-100"}`}
           onLoad={async () => {
+            // ---------------
+
+            await new Promise((resolve) => setTimeout(resolve, 1000)); //! remove in prod
+
+            // ---------------
             setImageLoading(false);
           }}
           onError={() => {

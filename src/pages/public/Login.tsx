@@ -94,6 +94,12 @@ const Login = () => {
         }
       */
 
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
+
       const res = await api.post("/auth/login", {
         email: data.email,
         password: data.password,
@@ -134,6 +140,12 @@ const Login = () => {
   const onOtpEnter = async (data: OTPFormData) => {
     try {
       setLoading(true);
+
+      // ---------------
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+      // ---------------
 
       const res = await api.post("/auth/verify-otp", {
         email: getCredValues("email"),
