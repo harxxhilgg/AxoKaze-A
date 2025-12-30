@@ -32,6 +32,12 @@ export const useAuthStore = create<AuthState>()(
       checkAuth: async () => {
         const wasAuthenticated = get().isAuthenticated;
 
+        // ---------------
+
+        await new Promise((resolve) => setTimeout(resolve, 2000)); //! remove in prod
+
+        // ---------------
+
         // lazy check: if user was logged in before, trust localStorage
         if (wasAuthenticated) {
           set({ loading: false });
