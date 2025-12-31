@@ -13,13 +13,7 @@ import DriverStandingsPopup from "../../components/private/Popups/DriverStanding
 import ConstructorStandingsPopup from "../../components/private/Popups/ConstructorStandingsPopup";
 // import Snowfall from "react-snowfall";
 
-export type MenuTab =
-  | "overview"
-  | "pokedex"
-  | "f1"
-  | "weather"
-  | "crypto"
-  | "profile";
+export type MenuTab = "overview" | "pokedex" | "f1" | "weather" | "profile";
 
 const Dashboard = () => {
   const { user } = useAuthStore();

@@ -1,4 +1,4 @@
-import { CloudSun, Gpu, Home } from "lucide-react";
+import { CloudSun, Home } from "lucide-react";
 import type { MenuTab } from "../../../pages/protected/Dashboard";
 import type { User } from "../../../types";
 import DefaultUser from "../../../assets/default-user.svg";
@@ -36,11 +36,6 @@ const menuItems = [
     id: "weather" as MenuTab,
     label: "Weather",
     icon: CloudSun,
-  },
-  {
-    id: "crypto" as MenuTab,
-    label: "Crypto",
-    icon: Gpu,
   },
 ];
 

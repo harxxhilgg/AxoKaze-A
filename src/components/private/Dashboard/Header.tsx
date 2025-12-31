@@ -14,7 +14,6 @@ const tabLabels: Record<MenuTab, string> = {
   pokedex: "Pokédex",
   f1: "Formula 1",
   weather: "Weather",
-  crypto: "Crypto",
   profile: "Profile",
 };
 

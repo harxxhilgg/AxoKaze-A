@@ -4,7 +4,6 @@ import Overview from "./Pages/Overview";
 import Profile from "./Pages/Profile";
 import Pokedex from "./Pages/Pokedex";
 import Weather from "./Pages/Weather";
-import Crypto from "./Pages/Crypto";
 import F1 from "./Pages/F1";
 
 interface MainContentProps {
@@ -23,8 +22,6 @@ const MainContent = ({ activeTab, user }: MainContentProps) => {
         return <F1 />;
       case "weather":
         return <Weather />;
-      case "crypto":
-        return <Crypto />;
       case "profile":
         return <Profile user={user} />;
       default:
